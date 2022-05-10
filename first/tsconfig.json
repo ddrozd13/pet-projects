@@ -22,6 +22,6 @@
   },
   "include": [
     "src",
-    "common.d.ts"
+    "common.d.ts",
   ]
 }
