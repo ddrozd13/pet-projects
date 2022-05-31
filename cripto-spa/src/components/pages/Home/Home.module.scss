@@ -10,6 +10,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      margin-bottom: 30px;
 
       table {
         width: 100vw;
@@ -46,6 +47,11 @@
       }
 
       &_body {
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.01);
+        }
         tr {
           border: none;
         }
@@ -58,11 +64,31 @@
             text-align: right;
           }
 
+          &:last-child {
+            cursor: default;
+          }
+
           &:first-child {
             text-align: left;
           }
-        }
 
+          .add_button {
+            pointer-events: painted;
+            cursor: cell;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgb(184, 20, 199);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              background-color: rgb(184, 20, 199);
+              color: black;
+            }
+          }
+        }
 
       }
 

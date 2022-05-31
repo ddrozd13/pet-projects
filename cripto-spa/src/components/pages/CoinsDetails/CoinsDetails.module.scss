@@ -1,0 +1,51 @@
+.container {
+
+  &_wrapper {
+    max-width: 1280px;
+    box-sizing: content-box;
+    margin: 0 auto;
+
+    .routes {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        li:not(:last-child) {
+          margin-right: 8px;
+        }
+      }
+      &_route {
+        color: rgb(0, 119, 255);
+
+        &:not(:last-child) {
+          cursor: pointer;
+        }
+      }
+
+      &_line {
+        height: 2px;
+        width: 30px;
+        background-color: rgb(0, 119, 255);
+        cursor: default;
+      }
+
+      &_goBack {
+        cursor: pointer;
+        color: rgb(0, 119, 255);
+        font-size: 12px;
+        padding: 4px 2px;
+        border: 1px solid rgb(0, 119, 255);
+        border-radius: 6px;
+      }
+
+    }
+  }
+}

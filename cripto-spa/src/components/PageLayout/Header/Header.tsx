@@ -41,6 +41,8 @@ const Header: FC = () => {
                   >
                     {round(coins[0].priceUsd, 3)}
                     &nbsp;
+                    USD
+                    &nbsp;
                     <span
                       className={clsx(Math.sign(coins[0].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                     >
@@ -56,6 +58,8 @@ const Header: FC = () => {
                   >
                     {round(coins[1].priceUsd, 3)}
                     &nbsp;
+                    USD
+                    &nbsp;
                     <span
                       className={clsx(Math.sign(coins[1].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                     >
@@ -69,13 +73,15 @@ const Header: FC = () => {
                   <span
                     className={styles.case_container_subtitle}
                   >
-                    {round(coins[2].priceUsd, 3)}
+                    {round(coins[2].priceUsd, 4)}
+                    &nbsp;
+                    USD
                     &nbsp;
                     <span
                       className={clsx(Math.sign(coins[2].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                     >
                       {Math.sign(coins[2].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                      {round(coins[2].changePercent24Hr, 2)}
+                      {round(coins[2].changePercent24Hr, 4)}
                     </span>
                   </span>
                 </li>
