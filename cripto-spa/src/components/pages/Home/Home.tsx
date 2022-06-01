@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store';
 import { getAllCoinsAction } from '../../../store/GetCoins/ActionCreator';
@@ -10,19 +10,30 @@ import clsx from 'clsx';
 import Tooltip from '../../Tooltip/Tooltip';
 import Pagination from '../../Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
-
-export function numberWithCommas(x: number) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+import { numberWithCommas } from '../../../utils/moneyFormat';
+import Modal from '../../Modal/Modal';
+import { ICoin } from '../../../api/Types';
 
 const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { coins, currentPage, perPage } = useSelector((state: RootState) => state.allCoins);
+  const [activeModal, setActiveModal] = useState(false);
+  const [coin, setCoin] = useState<string | undefined>(undefined);
+  const [amount, setAmount] = useState<number>(1);
+
+  const handleFormAdd = (event: React.MouseEvent<HTMLSpanElement>) => {
+    setActiveModal(true)
+    setCoin(event.currentTarget.dataset.id)
+  }
+
+  const handleAddCoinCase = (coin: ICoin, amount: number) => {
+    setActiveModal(false);
+  }
 
   useEffect(() => {
     dispatch(getAllCoinsAction());
-  }, []);
+  }, [navigate]);
 
   return (
     <PageLayout>
@@ -42,7 +53,7 @@ const Home: FC = () => {
                 </tr>
                 {coins && coins.slice((currentPage - 1) * perPage, (currentPage * perPage)).map((coin) => {
                   return (
-                    <tr key={coin.id} className={styles.table_body} onClick={() => navigate(`/${coin.id}`)}>
+                    <tr key={coin.id} className={styles.table_body} onClick={() => navigate(`/coin/${coin.id}`)}>
                       <th>{coin.name}</th>
                       <td>$ {round(coin.priceUsd, 6)}</td>
                       <td
@@ -55,7 +66,7 @@ const Home: FC = () => {
                       <td>$ {numberWithCommas(round(Number(coin.marketCapUsd.toString().slice(0, -6))))}</td>
                       <th onClick={(event) => event.stopPropagation()}>
                         <Tooltip content='Add in case'>
-                          <span className={styles.add_button}>+</span>
+                          <span className={styles.add_button} data-id={coin.id} onClick={(event) => handleFormAdd(event)}>+</span>
                         </Tooltip>
                       </th>
                     </tr>
@@ -64,6 +75,31 @@ const Home: FC = () => {
             </table>
           </div>
           <Pagination />
+          <Modal active={activeModal} setActive={setActiveModal}>
+            <div className={styles.case}>
+              <h1 className={styles.case_title}>Сhoose an action</h1>
+              {coins && coins.map((item, index) => {
+                if(item.id === coin){
+                  return (
+                    <form className={styles.case_card} key={index}>
+                      <h3>{item.name}</h3>
+                      <p>
+                        {round(item.priceUsd, 3)}$
+                        <span
+                          className={clsx(Math.sign(coins[2].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
+                        >
+                          ({Math.sign(coins[2].changePercent24Hr) !== -1 || -0 ? '+' : ''}
+                          {round(coins[2].changePercent24Hr, 4)})
+                        </span>
+                      </p>
+                      <input type="number" min="1" required value={amount} onChange={(event) => setAmount(Number(event.target.value))}/>
+                      <div className={styles.case_button} onClick={() => handleAddCoinCase(item, amount)}>Add</div>
+                    </form>
+                  )
+                }
+              })}
+            </div>
+          </Modal>
         </div>
       </div>
     </PageLayout>

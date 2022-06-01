@@ -7,7 +7,7 @@ const App: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/:coin" element={<CoinsDetails />} />
+      <Route path="coin/:coin" element={<CoinsDetails />} />
     </Routes>
   );
 }

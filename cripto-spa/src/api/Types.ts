@@ -12,3 +12,13 @@ export interface ICoin{
   vwap24Hr: number;
   explorer: string;
 }
+
+export interface IIntervalCoin {
+  priceUsd: number;
+  time: Date;
+  date: Date;
+}
+
+export interface IIntervalCoinPromise{
+  data: IIntervalCoin[]
+}

@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { round } from 'lodash';
 import clsx from 'clsx';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const Header: FC = () => {
   const [activeModalCase, setActiveModalCase] = useState(false);
+  const navigate = useNavigate();
   const { coins } = useSelector((state: RootState) => state.allCoins);
 
   return (
@@ -34,7 +36,7 @@ const Header: FC = () => {
             )}
             {coins && (
               <ul className={styles.navigation_list}>
-                <li>
+                <li onClick={() => navigate(`/coin/${coins[0].id}`)}>
                   {coins[0].name}
                   <span
                     className={styles.case_container_subtitle}
@@ -51,7 +53,7 @@ const Header: FC = () => {
                     </span>
                   </span>
                 </li>
-                <li>
+                <li onClick={() =>  navigate(`/coin/${coins[1].id}`)}>
                   {coins[1].name}
                   <span
                     className={styles.case_container_subtitle}
@@ -68,7 +70,7 @@ const Header: FC = () => {
                     </span>
                   </span>
                 </li>
-                <li>
+                <li onClick={() => navigate(`/coin/${coins[2].id}`)}>
                   {coins[2].name}
                   <span
                     className={styles.case_container_subtitle}

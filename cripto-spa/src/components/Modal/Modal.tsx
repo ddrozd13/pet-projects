@@ -12,6 +12,9 @@ const Modal: FC<IModalProps> = ({active, setActive, children}) => {
     <div className={clsx(styles.container, active && styles.container_active)} onClick={() => setActive(false)}>
       <div className={clsx(styles.container_content, active && styles.container_content_active)} onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
         {children}
+        <button className={styles.container_close} onClick={() => setActive(false)}>
+          Close
+        </button>
       </div>
     </div>
   )

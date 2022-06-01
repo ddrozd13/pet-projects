@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { getAllCoinsReducer } from './GetCoins/Reducer';
+import { getIntervalReducer } from './getInterval/Reducer';
 
 const store = configureStore({
   reducer: {
     allCoins: getAllCoinsReducer,
+    interval: getIntervalReducer
   }
 });
 

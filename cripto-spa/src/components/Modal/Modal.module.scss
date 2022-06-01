@@ -31,4 +31,17 @@
     }
   }
 
+  &_close {
+    position: relative;
+    top: 50%;
+    left: 90%;
+    border: 1px solid rgb(0, 119, 255);
+    color: rgb(0, 119, 255);
+    background-color: inherit;
+    text-transform: uppercase;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 20px;
+  }
+
 }

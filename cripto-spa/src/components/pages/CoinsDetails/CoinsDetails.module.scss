@@ -1,17 +1,16 @@
 .container {
 
   &_wrapper {
-    max-width: 1280px;
-    box-sizing: content-box;
     margin: 0 auto;
 
     .routes {
+      margin: 0 auto;
       margin-top: 20px;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
+      width: 60%;
 
       ul {
         display: flex;
@@ -47,5 +46,112 @@
       }
 
     }
+
+    .content {
+      margin: 0 auto;
+      margin-top: 30px;
+      height: 80vh;
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+
+      &_button {
+        margin-top: 20px;
+        padding: 20px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        color: burlywood;
+        font-weight: bold;
+        font-size: 20px;
+        background-color: rgb(184, 20, 199);
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+
+      &_chart {
+        width: 60%;
+      }
+
+      &_area {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: space-between;
+
+        h1 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        h1,h2 {
+          font-size: 40px;
+        }
+
+        span {
+          color: burlywood;
+          font-size: 30px;
+        }
+      }
+
+      &_verticalLine {
+        width: 3px;
+        height: 80vh;
+        background-color: burlywood;
+      }
+    }
+
+    .case {
+
+      &_title {
+        text-align: center;
+        border-bottom: 4px solid;
+        padding-bottom: 20px;
+      }
+
+      &_card {
+        margin-top: 50px;
+        padding-bottom: 50px;
+        border-bottom: 3px solid;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      &_button {
+        pointer-events: painted;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 10px;
+        border: 1px solid rgb(184, 20, 199);
+        margin-right: 20px;
+        &:hover {
+          background-color: rgb(184, 20, 199);
+          color: black;
+        }
+
+      }
+
+      input{
+        padding: 10px;
+        border-radius: 5px;
+        background-color: inherit;
+      }
+    }
   }
+}
+
+.green {
+  color: green;
+  font-size: 12px;
+}
+
+.red {
+  color: red;
+  font-size: 12px;
 }
