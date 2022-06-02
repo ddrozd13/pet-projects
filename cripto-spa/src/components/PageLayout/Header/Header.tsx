@@ -8,6 +8,7 @@ import { round } from 'lodash';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import CaseCoins from '../../Form/CaseCoins/CaseCoins';
+import { caseCounter, caseDifference, casePercent } from '../../../utils/caseCounter';
 
 
 const Header: FC = () => {
@@ -95,7 +96,19 @@ const Header: FC = () => {
           <img src={Case} alt="Case" className={styles.case_image}/>
           <div className={styles.case_container}>
             <p className={styles.case_container_title}>My case</p>
-            <div className={styles.case_container_subtitle}>134,32 USD +2,38 (1,80 %)</div>
+
+            <div className={styles.case_container_subtitle}>
+              {caseCounter()} USD
+              <span
+                className={clsx(Math.sign(casePercent()) === -1 || -0 ? styles.red : styles.green)}
+              >
+                &nbsp;
+                {Math.sign(casePercent()) !== -1 || -0 ? '+' : ''}
+                {round(casePercent(), 4)}
+                &nbsp;
+              </span>
+              ({caseDifference(coins)} %)
+            </div>
           </div>
         </div>
       </div>
