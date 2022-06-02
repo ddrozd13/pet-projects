@@ -103,46 +103,6 @@
         background-color: burlywood;
       }
     }
-
-    .case {
-
-      &_title {
-        text-align: center;
-        border-bottom: 4px solid;
-        padding-bottom: 20px;
-      }
-
-      &_card {
-        margin-top: 50px;
-        padding-bottom: 50px;
-        border-bottom: 3px solid;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-      }
-
-      &_button {
-        pointer-events: painted;
-        cursor: pointer;
-        border-radius: 5px;
-        font-weight: bold;
-        padding: 10px;
-        border: 1px solid rgb(184, 20, 199);
-        margin-right: 20px;
-        &:hover {
-          background-color: rgb(184, 20, 199);
-          color: black;
-        }
-
-      }
-
-      input{
-        padding: 10px;
-        border-radius: 5px;
-        background-color: inherit;
-      }
-    }
   }
 }
 

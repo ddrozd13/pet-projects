@@ -8,9 +8,8 @@ import { getIntervalAction } from '../../../store/getInterval/ActionCreator';
 import Chart from '../../Chart/Chart';
 import { round } from 'lodash';
 import { numberWithCommas } from '../../../utils/moneyFormat';
-import Modal from '../../Modal/Modal';
-import clsx from 'clsx';
 import { getAllCoinsAction } from '../../../store/GetCoins/ActionCreator';
+import AddCoin from '../../Form/AddCoin/AddCoin';
 
 
 const CoinsDetails: FC = () => {
@@ -20,7 +19,6 @@ const CoinsDetails: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { intervals } = useSelector((state: RootState) => state.interval);
   const { coins } = useSelector((state: RootState) => state.allCoins);
-  const [amount, setAmount] = useState<number>(1);
 
   useEffect(() => {
     dispatch(getIntervalAction(String(coin)));
@@ -60,32 +58,7 @@ const CoinsDetails: FC = () => {
               <Chart data={intervals?.slice(0, 30)} />
             </div>
           </div>
-          <Modal active={activeModal} setActive={setActiveModal}>
-            <div className={styles.case}>
-              <h1 className={styles.case_title}>Сhoose an action</h1>
-              {coins && coins.map((item, index) => {
-                if(item.id === coin){
-                  return (
-                    <form className={styles.case_card} key={index}>
-                      <h3>{item.name}</h3>
-                      <p>
-                        {round(item.priceUsd, 3)}$
-                        <span
-                          className={clsx(Math.sign(coins[2].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
-                        >
-                          ({Math.sign(coins[2].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                          {round(coins[2].changePercent24Hr, 4)})
-                        </span>
-                      </p>
-                      <input type="number" min="1" required value={amount} onChange={(event) => setAmount(Number(event.target.value))}/>
-                      <div className={styles.case_button}>add</div>
-                    </form>
-                  )
-                }
-              })}
-
-            </div>
-          </Modal>
+          <AddCoin activeModal={activeModal} setActiveModal={setActiveModal} coinId={coin} coins={coins}/>
         </div>
       </div>
     </PageLayout>

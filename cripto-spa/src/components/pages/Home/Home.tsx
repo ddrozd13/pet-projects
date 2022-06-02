@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from '../../../utils/moneyFormat';
 import Modal from '../../Modal/Modal';
 import { ICoin } from '../../../api/Types';
+import AddCoin from '../../Form/AddCoin/AddCoin';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -20,20 +21,15 @@ const Home: FC = () => {
   const { coins, currentPage, perPage } = useSelector((state: RootState) => state.allCoins);
   const [activeModal, setActiveModal] = useState(false);
   const [coin, setCoin] = useState<string | undefined>(undefined);
-  const [amount, setAmount] = useState<number>(1);
 
   const handleFormAdd = (event: React.MouseEvent<HTMLSpanElement>) => {
     setActiveModal(true)
     setCoin(event.currentTarget.dataset.id)
   }
 
-  const handleAddCoinCase = (coin: ICoin, amount: number) => {
-    setActiveModal(false);
-  }
-
   useEffect(() => {
     dispatch(getAllCoinsAction());
-  }, [navigate]);
+  }, [dispatch]);
 
   return (
     <PageLayout>
@@ -70,36 +66,13 @@ const Home: FC = () => {
                         </Tooltip>
                       </th>
                     </tr>
-                  )})}
+                  )
+                })}
               </tbody>
             </table>
           </div>
           <Pagination />
-          <Modal active={activeModal} setActive={setActiveModal}>
-            <div className={styles.case}>
-              <h1 className={styles.case_title}>Сhoose an action</h1>
-              {coins && coins.map((item, index) => {
-                if(item.id === coin){
-                  return (
-                    <form className={styles.case_card} key={index}>
-                      <h3>{item.name}</h3>
-                      <p>
-                        {round(item.priceUsd, 3)}$
-                        <span
-                          className={clsx(Math.sign(coins[2].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
-                        >
-                          ({Math.sign(coins[2].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                          {round(coins[2].changePercent24Hr, 4)})
-                        </span>
-                      </p>
-                      <input type="number" min="1" required value={amount} onChange={(event) => setAmount(Number(event.target.value))}/>
-                      <div className={styles.case_button} onClick={() => handleAddCoinCase(item, amount)}>Add</div>
-                    </form>
-                  )
-                }
-              })}
-            </div>
-          </Modal>
+          <AddCoin activeModal={activeModal} setActiveModal={setActiveModal} coins={coins} coinId={coin}/>
         </div>
       </div>
     </PageLayout>

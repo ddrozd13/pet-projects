@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { round } from 'lodash';
 import clsx from 'clsx';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import CaseCoins from '../../Form/CaseCoins/CaseCoins';
 
 
 const Header: FC = () => {
@@ -98,9 +99,7 @@ const Header: FC = () => {
           </div>
         </div>
       </div>
-      <Modal active={activeModalCase} setActive={setActiveModalCase}>
-        <p>Coins list</p>
-      </Modal>
+      <CaseCoins activeModal={activeModalCase} setActiveModal={setActiveModalCase} />
     </header>
   )
 }
