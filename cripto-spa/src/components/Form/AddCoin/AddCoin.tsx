@@ -4,14 +4,7 @@ import { ICoin } from '../../../api/Types';
 import { round } from 'lodash';
 import Modal from '../../Modal/Modal';
 import clsx from 'clsx';
-
-export interface IStorageCoin {
-  id: string;
-  name: string;
-  price: number;
-  percent: number;
-  amount: number;
-}
+import { addCoinToLS } from '../../../utils/GetCoinToLS';
 interface IAddCoinProps {
   activeModal: boolean;
   setActiveModal: (isActive: boolean) => void;
@@ -19,23 +12,14 @@ interface IAddCoinProps {
   coinId: string | undefined
 }
 const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}) => {
-  const [storageCoins, setStorageCoins] = useState<IStorageCoin[] | []>(JSON.parse(localStorage.getItem('coinsArray')!));
-  const [amount, setAmount] = useState<number>(1);
-
-  const handleAddCoinCase = (coin: ICoin, amount: number) => {
+  const handleAddCoinCase = (coin: ICoin) => {
     setActiveModal(false);
-    setStorageCoins([
-      ...storageCoins,
-        {
-          id: coin.id,
-          name: coin.name,
-          price: round(coin.priceUsd, 1),
-          percent: round(coin.changePercent24Hr, 3),
-          amount
-        }
-      ]
-    )
-    localStorage.setItem('coinsArray', JSON.stringify(storageCoins));
+    addCoinToLS({
+      id: coin.id,
+      name: coin.name,
+      price: round(coin.priceUsd, 1),
+      percent: round(coin.changePercent24Hr, 3),
+    })
   }
 
   return (
@@ -56,8 +40,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                     {round(item.changePercent24Hr, 4)})
                   </span>
                 </p>
-                <input type="number" min="1" required value={amount} onChange={(event) => setAmount(Number(event.target.value))}/>
-                <div className={styles.case_button} onClick={() => handleAddCoinCase(item, amount)}>Add</div>
+                <div className={styles.case_button} onClick={() => handleAddCoinCase(item)}>Add</div>
               </form>
             )
           }

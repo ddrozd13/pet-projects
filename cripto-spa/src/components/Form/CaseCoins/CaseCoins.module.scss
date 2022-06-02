@@ -21,6 +21,11 @@
     }
   }
 
+  &_container {
+    height: 46vh;
+    overflow: auto;
+  }
+
   &_title {
     text-align: center;
     border-bottom: 4px solid;
@@ -28,7 +33,7 @@
   }
 
   &_card {
-    margin-top: 36px;
+    padding-top: 36px;
     padding-bottom: 36px;
     border-bottom: 3px solid;
     display: flex;

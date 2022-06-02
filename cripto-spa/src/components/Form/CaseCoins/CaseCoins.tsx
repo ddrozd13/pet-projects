@@ -1,36 +1,37 @@
 import styles from './CaseCoins.module.scss';
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import Modal from '../../Modal/Modal';
 import clsx from 'clsx';
 import { round } from 'lodash';
-import { IStorageCoin } from '../AddCoin/AddCoin';
+import { IStorageCoin } from '../../../utils/GetCoinToLS';
+import { getCoinsFromLS } from '../../../utils/GetCoinToLS';
 
 interface ICaseCoinsProps {
   activeModal: boolean;
   setActiveModal: (args: boolean) => void;
 }
 const CaseCoins: FC<ICaseCoinsProps> = ({activeModal, setActiveModal}) => {
-  const [coinsStorage, setCoinsStorage] = useState<IStorageCoin[] | []>(JSON.parse(localStorage.getItem('coinsArray')!));
-
-  const handleDeleteCoin = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = event.currentTarget.dataset.id
-    setCoinsStorage(coinsStorage.filter((item) => item.id !== target));
-    localStorage.setItem('coinsArray', JSON.stringify(coinsStorage));
+  const [coinsStorage, setCoinsStorage] = useState<IStorageCoin[] | []>(getCoinsFromLS);
+  const removeCoinFromLS = (event: React.MouseEvent<HTMLDivElement>) => {
+    const id = event.currentTarget.dataset.id;
+    const data = coinsStorage.filter((item) => item.id !== id);
+    localStorage.setItem('coinsArray', JSON.stringify(data));
+    setCoinsStorage(getCoinsFromLS)
   }
+
   return (
     <Modal active={activeModal} setActive={setActiveModal}>
       <div className={styles.case}>
         <h1 className={styles.case_title}>Coins in your case</h1>
+        <div className={styles.case_header}>
+          <ul>
+            <li>Coin</li>
+            <li>Price</li>
+            <li>Change Percent(24H)</li>
+          </ul>
+        </div>
         <div className={styles.case_container}>
-          <div className={styles.case_header}>
-            <ul>
-              <li>Coin</li>
-              <li>Price</li>
-              <li>Change Percent(24H)</li>
-            </ul>
-
-          </div>
-          {coinsStorage && coinsStorage.map((item, index) => (
+          {getCoinsFromLS() && getCoinsFromLS().map((item, index) => (
             <div className={styles.case_card} key={index}>
               <h3>{item.name}</h3>
               <p>
@@ -44,7 +45,7 @@ const CaseCoins: FC<ICaseCoinsProps> = ({activeModal, setActiveModal}) => {
               </span>
               <div
                 className={styles.case_button}
-                onClick={(event) => handleDeleteCoin(event)}
+                onClick={(event) => removeCoinFromLS(event)}
                 data-id={item.id}
               >
                 Delete
