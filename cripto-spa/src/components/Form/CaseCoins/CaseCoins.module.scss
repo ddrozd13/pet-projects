@@ -22,6 +22,8 @@
   }
 
   &_container {
+    display: flex;
+    flex-direction: column;
     height: 46vh;
     overflow: auto;
   }

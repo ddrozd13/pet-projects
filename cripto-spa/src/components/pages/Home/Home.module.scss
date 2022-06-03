@@ -12,6 +12,11 @@
       justify-content: center;
       margin-bottom: 30px;
 
+      @media (max-width: 768px){
+        margin-right: 12px;
+        margin-left: 12px;
+      }
+
       table {
         width: 100vw;
       }

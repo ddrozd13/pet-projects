@@ -1,10 +1,11 @@
 import styles from './AddCoin.module.scss';
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { ICoin } from '../../../api/Types';
 import { round } from 'lodash';
 import Modal from '../../Modal/Modal';
 import clsx from 'clsx';
-import { addCoinToLS } from '../../../utils/GetCoinToLS';
+import { addCoinToLS, getCoinsFromLS, IStorageCoin } from '../../../utils/GetCoinToLS';
+import { signMath } from '../../../utils/Math';
 interface IAddCoinProps {
   activeModal: boolean;
   setActiveModal: (isActive: boolean) => void;
@@ -12,14 +13,27 @@ interface IAddCoinProps {
   coinId: string | undefined
 }
 const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}) => {
+  const [amount, setAmount] = useState(1);
   const handleAddCoinCase = (coin: ICoin) => {
     setActiveModal(false);
-    addCoinToLS({
-      id: coin.id,
-      name: coin.name,
-      price: round(coin.priceUsd, 1),
-      percent: round(coin.changePercent24Hr, 3),
-    })
+
+    const data = getCoinsFromLS().find(item => item.id === coin.id);
+    if(data?.id === coin.id){
+      const oldData = getCoinsFromLS().filter(item => item.id !== coin.id);
+
+      localStorage.setItem('coinsArray', JSON.stringify([...oldData, {...data, amount: data.amount + amount, total: data.total + (data.price* amount)}]));
+    }else {
+      addCoinToLS(
+        {
+          id: coin.id,
+          name: coin.name,
+          price: round(coin.priceUsd, 1),
+          percent: round(coin.changePercent24Hr, 3),
+          amount,
+          total: round(coin.priceUsd, 1)
+        }
+      )
+    }
   }
 
   return (
@@ -36,10 +50,11 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                   <span
                     className={clsx(Math.sign(item.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                   >
-                    ({Math.sign(item.changePercent24Hr) !== -1 || -0 ? '+' : ''}
+                    ({signMath(item.changePercent24Hr)}
                     {round(item.changePercent24Hr, 4)})
                   </span>
                 </p>
+                <input type="number" onChange={(event) => setAmount(Number(event.target.value))} required value={amount}/>
                 <div className={styles.case_button} onClick={() => handleAddCoinCase(item)}>Add</div>
               </form>
             )

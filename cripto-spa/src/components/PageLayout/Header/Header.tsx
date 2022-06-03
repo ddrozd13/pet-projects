@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import styles from './Header.module.scss';
 import Case from '../../../images/case.svg';
-import Modal from '../../Modal/Modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { round } from 'lodash';
@@ -9,105 +8,108 @@ import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import CaseCoins from '../../Form/CaseCoins/CaseCoins';
 import { caseCounter, caseDifference, casePercent } from '../../../utils/caseCounter';
+import { signMath } from '../../../utils/Math';
 
 
 const Header: FC = () => {
   const [activeModalCase, setActiveModalCase] = useState(false);
   const navigate = useNavigate();
   const { coins } = useSelector((state: RootState) => state.allCoins);
+  const [press, setPress] = useState(false);
+
+  const handleClick = () => {
+    if(!press) {
+      setPress(true);
+    }else {
+      setPress(false);
+    }
+  }
+
+  const handleNavigate = (id: string) => {
+    navigate(`/coin/${id}`);
+    setPress(false);
+  };
+
 
   return (
     <header className={styles.container}>
       <div className={styles.container_wrapper}>
         <nav className={styles.navigation}>
-            {!coins && (
-              <ul className={styles.navigation_list}>
-                <li>
-                  Bitcoin
-                  <span>0</span>
-                </li>
-                <li>
-                  Ethereum
-                  <span>0</span>
-                </li>
-                <li>
-                  Tether
-                  <span>0</span>
-                </li>
-              </ul>
-            )}
-            {coins && (
-              <ul className={styles.navigation_list}>
-                <li onClick={() => navigate(`/coin/${coins[0].id}`)}>
-                  {coins[0].name}
+          {!coins && (
+            <ul className={styles.navigation_list}>
+              <li>
+                Bitcoin
+                <span>0</span>
+              </li>
+              <li>
+                Ethereum
+                <span>0</span>
+              </li>
+              <li>
+                Tether
+                <span>0</span>
+              </li>
+            </ul>
+          )}
+          <ul className={styles.navigation_list}>
+            {coins && coins.slice(0, 3).map((coin) => (
+              <li onClick={() => navigate(`/coin/${coin.id}`)} key={coin.id}>
+                {coin.name}
+                <span
+                  className={styles.case_container_subtitle}
+                >
+                  {round(coin.priceUsd, 3)}
+                  &nbsp;
+                  USD
+                  &nbsp;
                   <span
-                    className={styles.case_container_subtitle}
+                    className={clsx(Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                   >
-                    {round(coins[0].priceUsd, 3)}
-                    &nbsp;
-                    USD
-                    &nbsp;
-                    <span
-                      className={clsx(Math.sign(coins[0].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
-                    >
-                      {Math.sign(coins[0].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                      {round(coins[0].changePercent24Hr, 2)}
-                    </span>
+                    {signMath(coin.changePercent24Hr)}
+                    {round(coin.changePercent24Hr, 2)}
                   </span>
+                </span>
+              </li>
+
+            ))}
+          </ul>
+          <div className={styles.menu}>
+            <div onClick={handleClick} className={styles.showMenuButton}>Menu</div>
+            <ul  className={clsx(!press ? styles.none : styles.dropdown_content)}>
+              {coins && coins.slice(0, 3).map((coin) => (
+                <li key={coin.id} className={styles.dropdown_content_container} onClick={() => handleNavigate(coin.id)}>
+                  {coin.name}
+                  <ul style={{display: 'flex'}}>
+                    <li>{round(coin.priceUsd, 2)} $</li>
+                    <li className={clsx(Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}>
+                      ({signMath(coin.changePercent24Hr)}
+                      {round(coin.changePercent24Hr, 3)})
+                    </li>
+                  </ul>
                 </li>
-                <li onClick={() =>  navigate(`/coin/${coins[1].id}`)}>
-                  {coins[1].name}
-                  <span
-                    className={styles.case_container_subtitle}
-                  >
-                    {round(coins[1].priceUsd, 3)}
-                    &nbsp;
-                    USD
-                    &nbsp;
-                    <span
-                      className={clsx(Math.sign(coins[1].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
-                    >
-                      {Math.sign(coins[1].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                      {round(coins[1].changePercent24Hr, 2)}
-                    </span>
-                  </span>
-                </li>
-                <li onClick={() => navigate(`/coin/${coins[2].id}`)}>
-                  {coins[2].name}
-                  <span
-                    className={styles.case_container_subtitle}
-                  >
-                    {round(coins[2].priceUsd, 4)}
-                    &nbsp;
-                    USD
-                    &nbsp;
-                    <span
-                      className={clsx(Math.sign(coins[2].changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
-                    >
-                      {Math.sign(coins[2].changePercent24Hr) !== -1 || -0 ? '+' : ''}
-                      {round(coins[2].changePercent24Hr, 4)}
-                    </span>
-                  </span>
-                </li>
-              </ul>
-            )}
+              ))}
+            </ul>
+          </div>
         </nav>
         <div className={styles.case} onClick={() => setActiveModalCase(true)}>
           <img src={Case} alt="Case" className={styles.case_image}/>
           <div className={styles.case_container}>
             <p className={styles.case_container_title}>My case</p>
-
             <div className={styles.case_container_subtitle}>
               {caseCounter()} USD
               <span
                 className={clsx(Math.sign(casePercent()) === -1 || -0 ? styles.red : styles.green)}
               >
                 &nbsp;
-                {Math.sign(casePercent()) !== -1 || -0 ? '+' : ''}
+                {signMath(casePercent())}
                 {round(casePercent(), 4)}
                 &nbsp;
               </span>
-              ({caseDifference(coins)} %)
+              (
+              <span className={clsx(Math.sign(caseDifference(coins)) === -1 || -0 ? styles.red : styles.green)}>
+              {signMath(caseDifference(coins))}{caseDifference(coins)} %
+              </span>
+              )
             </div>
           </div>
         </div>

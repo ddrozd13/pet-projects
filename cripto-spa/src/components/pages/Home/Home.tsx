@@ -11,9 +11,8 @@ import Tooltip from '../../Tooltip/Tooltip';
 import Pagination from '../../Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from '../../../utils/moneyFormat';
-import Modal from '../../Modal/Modal';
-import { ICoin } from '../../../api/Types';
 import AddCoin from '../../Form/AddCoin/AddCoin';
+import { signMath } from '../../../utils/Math';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ const Home: FC = () => {
                       <td
                         className={clsx(Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
                       >
-                        {Math.sign(coin.changePercent24Hr) !== -1 || -0 ? '+' : ''}
+                        {signMath(coin.changePercent24Hr)}
                         {round(coin.changePercent24Hr, 3)}
                         %
                       </td>

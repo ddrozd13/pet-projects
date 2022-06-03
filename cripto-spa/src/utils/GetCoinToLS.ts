@@ -4,6 +4,7 @@ export interface IStorageCoin {
   price: number;
   percent: number;
   amount: number;
+  total: number
 }
 export const getCoinsFromLS = (): IStorageCoin[] | [] => {
   const LS_KEY = 'coinsArray';
@@ -16,7 +17,7 @@ export const getCoinsFromLS = (): IStorageCoin[] | [] => {
   return [];
 };
 
-export const addCoinToLS = (data: any) => {
+export const addCoinToLS = (data: IStorageCoin) => {
   const oldData = getCoinsFromLS();
 
   localStorage.setItem('coinsArray', JSON.stringify([...oldData, data]));
