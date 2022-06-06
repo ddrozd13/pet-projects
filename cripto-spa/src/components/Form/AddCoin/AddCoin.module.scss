@@ -14,6 +14,23 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+
+
+    @media (max-width: 520px){
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+    }
+
+  }
+
+  h3,p,input,span {
+    @media (max-width: 520px){
+      margin-bottom: 20px;
+      width: 50vw;
+    }
   }
 
   &_button {
@@ -29,12 +46,20 @@
       color: black;
     }
 
+    @media (max-width: 520px){
+      width: 20vw;
+      text-align: center;
+    }
   }
 
   input{
     padding: 10px;
     border-radius: 5px;
     background-color: inherit;
+
+    @media (max-width: 520px){
+      width: 46vw;
+    }
   }
 }
 
@@ -46,4 +71,13 @@
 .green {
   color: green;
   font-size: 12px;
+}
+
+.none {
+  display: none;
+
+  @media (max-width: 520px){
+    display: inline;
+    font-weight: bold;
+  }
 }

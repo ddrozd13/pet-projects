@@ -21,17 +21,34 @@
     }
   }
 
+  h3,p,input,span {
+
+    @media (max-width: 520px){
+      margin-bottom: 20px;
+      width: 50vw;
+    }
+  }
+
   &_container {
     display: flex;
     flex-direction: column;
     height: 46vh;
     overflow: auto;
+
+    @media (max-width: 520px){
+      height: 70vh;
+    }
+
   }
 
   &_title {
     text-align: center;
     border-bottom: 4px solid;
     padding-bottom: 20px;
+
+    @media (max-width: 520px){
+      font-size: 20px;
+    }
   }
 
   &_card {
@@ -42,6 +59,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+
+    @media (max-width: 520px){
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   &_button {
@@ -74,4 +98,15 @@
 .green {
   color: green;
   font-size: 12px;
+}
+
+.none {
+  display: none;
+
+  @media (max-width: 520px){
+    display: inline;
+    font-weight: bold;
+    text-align: left;
+    font-size: 16px;
+  }
 }

@@ -30,7 +30,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
           price: round(coin.priceUsd, 1),
           percent: round(coin.changePercent24Hr, 3),
           amount,
-          total: round(coin.priceUsd, 1)
+          total: round(coin.priceUsd, 1) * amount
         }
       )
     }
@@ -44,8 +44,12 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
           if(item.id === coinId){
             return (
               <form className={styles.case_card} key={index}>
-                <h3>{item.name}</h3>
+                <h3>
+                  <span className={styles.none}>Coin: </span>
+                  {item.name}
+                </h3>
                 <p>
+                  <span className={styles.none}>Price (USD): </span>
                   {round(item.priceUsd, 3)}$
                   <span
                     className={clsx(Math.sign(item.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
@@ -55,6 +59,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                   </span>
                 </p>
                 <input type="number" onChange={(event) => setAmount(Number(event.target.value))} required value={amount}/>
+                <span className={styles.none}>Total: {round(item.priceUsd, 3) * amount}$</span>
                 <div className={styles.case_button} onClick={() => handleAddCoinCase(item)}>Add</div>
               </form>
             )

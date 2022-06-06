@@ -27,6 +27,10 @@
         font-size: 46px;
         margin-bottom: 40px;
         margin-top: 60px;
+
+        @media (max-width: 768px){
+          font-size: 24px;
+        }
       }
 
       &_header {
@@ -48,6 +52,13 @@
           &:last-child {
             border-top-right-radius: 24px;
           }
+
+          &:not(:last-child, :first-child){
+
+            @media (max-width: 420px){
+              display: none;
+            }
+          }
         }
       }
 
@@ -59,36 +70,80 @@
           border: none;
         }
 
+        &_item {
+          @media (max-width: 768px){
+            display: none;
+          }
+        }
+
         th,td {
           padding: 28px;
           border-bottom: 1px solid #fff;
+
+          @media (max-width: 768px){
+            padding: 10px;
+          }
 
           &:not(:first-child) {
             text-align: right;
           }
 
+          &:not(:last-child, :first-child){
+
+            @media (max-width: 420px){
+              display: none;
+            }
+          }
+
           &:last-child {
             cursor: default;
+
+
+            @media (max-width: 768px){
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+            }
           }
+
 
           &:first-child {
             text-align: left;
           }
 
           .add_button {
-            pointer-events: painted;
-            cursor: cell;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            border: 1px solid rgb(184, 20, 199);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: none;
 
             &:hover {
               background-color: rgb(184, 20, 199);
               color: black;
+            }
+
+            @media (min-width: 768px){
+              pointer-events: painted;
+              cursor: cell;
+              border-radius: 50%;
+              width: 24px;
+              height: 24px;
+              border: 1px solid rgb(184, 20, 199);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+            }
+          }
+
+          .more {
+            display: none;
+
+            @media (max-width: 768px){
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              padding: 10px;
+              border: 1px solid rgb(0, 119, 255);
             }
           }
         }

@@ -27,6 +27,7 @@ export const caseDifference = (array: ICoin[] | undefined) => {
         arr.push(num)
       }
     })
+
   })
   return round(sum(arr), 3);
 }
