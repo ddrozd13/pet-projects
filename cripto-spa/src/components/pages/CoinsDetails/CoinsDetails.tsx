@@ -1,5 +1,5 @@
 import styles from './CoinsDetails.module.scss';
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import PageLayout from '../../PageLayout/PageLayout';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,15 +22,15 @@ const CoinsDetails: FC = () => {
 
   useEffect(() => {
     dispatch(getIntervalAction(String(coin)));
-    dispatch(getAllCoinsAction())
-  }, [coin, dispatch])
+    dispatch(getAllCoinsAction());
+  }, [coin, dispatch]);
 
   return (
     <PageLayout>
       <div className={styles.container}>
         <div className={styles.container_wrapper}>
           <div className={styles.routes}>
-            <ul>
+            <ul className={styles.routes_list}>
               <li className={styles.routes_route} onClick={() => navigate('/')}>Main</li>
               <li className={styles.routes_line}></li>
               <li className={styles.routes_route}>{coin?.toUpperCase()}</li>
@@ -42,10 +42,10 @@ const CoinsDetails: FC = () => {
               if(item.id === coin){
                 return (
                   <div className={styles.content_area} key={index}>
-                    <h1>{item.name}</h1>
-                    <h2>Rank: <span>{item.rank}</span></h2>
-                    <h2>Current Price: <span>{round(item.priceUsd, 2)}$</span></h2>
-                    <h2>Market Cap: <span>{numberWithCommas(round(item.marketCapUsd, 1))}$</span></h2>
+                    <h1 className={styles.content_area_name}>{item.name}</h1>
+                    <h2 className={styles.content_area_item}>Rank: <span className={styles.content_area_text}>{item.rank}</span></h2>
+                    <h2 className={styles.content_area_item}>Current Price: <span className={styles.content_area_text}>{round(item.priceUsd, 2)}$</span></h2>
+                    <h2 className={styles.content_area_item}>Market Cap: <span className={styles.content_area_text}>{numberWithCommas(round(item.marketCapUsd, 1))}$</span></h2>
                     <button className={styles.content_button} onClick={() => setActiveModal(true)}>
                       Add {item.name} in case
                     </button>
@@ -62,7 +62,7 @@ const CoinsDetails: FC = () => {
         </div>
       </div>
     </PageLayout>
-  )
-}
+  );
+};
 
 export default CoinsDetails;

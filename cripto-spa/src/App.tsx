@@ -10,6 +10,6 @@ const App: FC = () => {
       <Route path="coin/:coin" element={<CoinsDetails />} />
     </Routes>
   );
-}
+};
 
 export default App;

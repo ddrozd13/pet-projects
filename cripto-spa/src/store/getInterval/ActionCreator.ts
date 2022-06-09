@@ -5,5 +5,5 @@ import IIntervalActionType from './ActionType';
 const getCoinInfo = new Coins();
 
 export const getIntervalAction = createAsyncThunk(IIntervalActionType.GetInterval, (coin: string) => {
-  return getCoinInfo.getInterval(coin)
+  return getCoinInfo.getInterval(coin);
 });

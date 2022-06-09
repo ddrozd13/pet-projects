@@ -6,7 +6,8 @@ interface IModalProps {
   active: boolean;
   setActive: (val: boolean) => void;
   children: React.ReactNode;
-}
+};
+
 const Modal: FC<IModalProps> = ({active, setActive, children}) => {
   return (
     <div className={clsx(styles.container, active && styles.container_active)} onClick={() => setActive(false)}>
@@ -17,7 +18,7 @@ const Modal: FC<IModalProps> = ({active, setActive, children}) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Modal;

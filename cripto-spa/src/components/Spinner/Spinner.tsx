@@ -9,7 +9,7 @@ const Spinner: FC = () => {
       <div className={clsx(styles.inner, styles.two)}></div>
       <div className={clsx(styles.inner, styles.three)}></div>
     </div>
-  )
-}
+  );
+};
 
 export default Spinner

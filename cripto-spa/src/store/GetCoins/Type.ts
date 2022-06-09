@@ -5,4 +5,4 @@ export interface ICoinsState {
   currentPage: number;
   perPage: number;
   totalCount: number;
-}
+};

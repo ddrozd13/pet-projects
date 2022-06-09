@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './Header.module.scss';
 import Case from '../../../images/case.svg';
 import { useSelector } from 'react-redux';
@@ -10,14 +10,11 @@ import CaseCoins from '../../Form/CaseCoins/CaseCoins';
 import { caseCounter, caseDifference, casePercent } from '../../../utils/caseCounter';
 import { signMath } from '../../../utils/Math';
 import Menu from './Menu/Menu';
-import { getCoinsFromLS, IStorageCoin } from '../../../utils/GetCoinToLS';
-
 
 const Header: FC = () => {
   const [activeModalCase, setActiveModalCase] = useState(false);
   const navigate = useNavigate();
   const { coins } = useSelector((state: RootState) => state.allCoins);
-
 
   return (
     <header className={styles.container}>
@@ -25,23 +22,23 @@ const Header: FC = () => {
         <nav className={styles.navigation}>
           {!coins && (
             <ul className={styles.navigation_list}>
-              <li>
+              <li className={styles.navigation_list_item}>
                 Bitcoin
-                <span>0</span>
+                <span className={styles.case_container_subtitle}>0</span>
               </li>
-              <li>
+              <li className={styles.navigation_list_item}>
                 Ethereum
-                <span>0</span>
+                <span className={styles.case_container_subtitle}>0</span>
               </li>
-              <li>
+              <li className={styles.navigation_list_item}>
                 Tether
-                <span>0</span>
+                <span className={styles.case_container_subtitle}>0</span>
               </li>
             </ul>
           )}
           <ul className={styles.navigation_list}>
             {coins && coins.slice(0, 3).map((coin) => (
-              <li onClick={() => navigate(`/coin/${coin.id}`)} key={coin.id}>
+              <li onClick={() => navigate(`/coin/${coin.id}`)} key={coin.id} className={styles.navigation_list_item}>
                 {coin.name}
                 <span
                   className={styles.case_container_subtitle}
@@ -88,7 +85,7 @@ const Header: FC = () => {
       </div>
       <CaseCoins activeModal={activeModalCase} setActiveModal={setActiveModalCase} />
     </header>
-  )
-}
+  );
+};
 
 export default Header;

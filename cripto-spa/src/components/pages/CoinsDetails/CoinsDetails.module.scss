@@ -17,7 +17,7 @@
         width: 90%;
       }
 
-      ul {
+      &_list {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -105,12 +105,12 @@
         text-align: left;
         justify-content: space-between;
 
-        h1 {
+        &_name {
           text-align: center;
           margin-bottom: 20px;
         }
 
-        h1,h2 {
+        .content_area_name, .content_area_item {
           font-size: 40px;
 
           @media (max-width: 768px){
@@ -118,7 +118,7 @@
           }
         }
 
-        span {
+        &_text {
           color: burlywood;
           font-size: 30px;
 

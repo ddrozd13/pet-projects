@@ -12,7 +12,7 @@ export const setFetching = createAction(ICoinsActionType.SetIsFetching);
 export const setCurrentPage = createAction(ICoinsActionType.SetCurrentPage, (page: number) => {
   return {
     payload: {
-      page
-    }
-  }
+      page,
+    },
+  };
 });

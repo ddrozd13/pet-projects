@@ -27,6 +27,7 @@ const Chart: FC<IChartProps> = ({data}) => {
     Tooltip,
     Legend
   );
+
   return (
     <Line
       data={{
@@ -41,7 +42,7 @@ const Chart: FC<IChartProps> = ({data}) => {
         ]
       }}
     />
-  )
-}
+  );
+};
 
 export default Chart;

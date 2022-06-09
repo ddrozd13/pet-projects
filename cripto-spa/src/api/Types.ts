@@ -11,14 +11,14 @@ export interface ICoin{
   changePercent24Hr: number;
   vwap24Hr: number;
   explorer: string;
-}
+};
 
 export interface IIntervalCoin {
   priceUsd: number;
   time: Date;
   date: Date;
-}
+};
 
 export interface IIntervalCoinPromise{
-  data: IIntervalCoin[]
-}
+  data: IIntervalCoin[];
+};

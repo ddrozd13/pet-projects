@@ -1,7 +1,7 @@
 enum ICoinsActionType {
   GetAllCoins = 'GetAllCoins',
   SetIsFetching = 'SetIsFetching',
-  SetCurrentPage = 'SetCurrentPage'
+  SetCurrentPage = 'SetCurrentPage',
 };
 
 export default ICoinsActionType;

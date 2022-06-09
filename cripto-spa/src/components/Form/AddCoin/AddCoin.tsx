@@ -1,10 +1,10 @@
 import styles from './AddCoin.module.scss';
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { ICoin } from '../../../api/Types';
 import { round } from 'lodash';
 import Modal from '../../Modal/Modal';
 import clsx from 'clsx';
-import { addCoinToLS, getCoinsFromLS, IStorageCoin } from '../../../utils/GetCoinToLS';
+import { addCoinToLS, getCoinsFromLS } from '../../../utils/GetCoinToLS';
 import { signMath } from '../../../utils/Math';
 interface IAddCoinProps {
   activeModal: boolean;
@@ -30,11 +30,11 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
           price: round(coin.priceUsd, 1),
           percent: round(coin.changePercent24Hr, 3),
           amount,
-          total: round(coin.priceUsd, 1) * amount
+          total: round(coin.priceUsd, 1) * amount,
         }
-      )
-    }
-  }
+      );
+    };
+  };
 
   return (
     <Modal active={activeModal} setActive={setActiveModal}>
@@ -58,7 +58,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                     {round(item.changePercent24Hr, 4)})
                   </span>
                 </p>
-                <input type="number" onChange={(event) => setAmount(Number(event.target.value))} required value={amount}/>
+                <input type="number" onChange={(event) => setAmount(Number(event.target.value))} required value={amount} min="1" className={styles.input}/>
                 <span className={styles.none}>Total: {round(item.priceUsd, 3) * amount}$</span>
                 <div className={styles.case_button} onClick={() => handleAddCoinCase(item)}>Add</div>
               </form>
@@ -67,7 +67,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
         })}
       </div>
     </Modal>
-  )
-}
+  );
+};
 
 export default AddCoin;

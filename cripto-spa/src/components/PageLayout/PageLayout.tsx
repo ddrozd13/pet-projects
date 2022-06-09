@@ -3,8 +3,8 @@ import Footer from './Footer/Footer';
 import Header from './Header/Header';
 
 interface IPageLayoutProps {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const PageLayout: FC<IPageLayoutProps> = ({children}) => {
   return (
@@ -13,7 +13,7 @@ const PageLayout: FC<IPageLayoutProps> = ({children}) => {
       {children}
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default PageLayout;

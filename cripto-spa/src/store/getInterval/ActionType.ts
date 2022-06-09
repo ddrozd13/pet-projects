@@ -1,5 +1,5 @@
 enum IIntervalActionType {
-  GetInterval = 'GetInterval'
+  GetInterval = 'GetInterval',
 };
 
 export default IIntervalActionType;

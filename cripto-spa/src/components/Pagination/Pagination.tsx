@@ -1,5 +1,5 @@
 import styles from './Pagination.module.scss';
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import clsx from 'clsx';
@@ -28,7 +28,7 @@ const Pagination: FC = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Pagination;
