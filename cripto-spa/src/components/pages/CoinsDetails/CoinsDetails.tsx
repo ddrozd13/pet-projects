@@ -51,6 +51,8 @@ const CoinsDetails: FC = () => {
                     </button>
                   </div>
                 )
+              }else {
+                return ''
               }
             })}
             <div className={styles.content_verticalLine}></div>

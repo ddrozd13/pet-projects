@@ -20,8 +20,8 @@ export const caseDifference = (array: ICoin[] | undefined) => {
   const data = getCoinsFromLS();
   let num = 0;
   let arr: number[] = [];
-  array?.map((item) => {
-    data.map((local) => {
+  array?.forEach((item) => {
+    data.forEach((local) => {
       if(item.id === local.id){
         num = (100 * (item.priceUsd - local.price)/local.price);
         arr.push(num);

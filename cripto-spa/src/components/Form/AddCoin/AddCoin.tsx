@@ -3,9 +3,9 @@ import { FC, useState } from 'react'
 import { ICoin } from '../../../api/Types';
 import { round } from 'lodash';
 import Modal from '../../Modal/Modal';
-import clsx from 'clsx';
 import { addCoinToLS, getCoinsFromLS } from '../../../utils/GetCoinToLS';
 import { signMath } from '../../../utils/Math';
+import { textPercent } from '../../../utils/textPercent';
 interface IAddCoinProps {
   activeModal: boolean;
   setActiveModal: (isActive: boolean) => void;
@@ -52,7 +52,7 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                   <span className={styles.none}>Price (USD): </span>
                   {round(item.priceUsd, 3)}$
                   <span
-                    className={clsx(Math.sign(item.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
+                    className={textPercent(item.changePercent24Hr)}
                   >
                     ({signMath(item.changePercent24Hr)}
                     {round(item.changePercent24Hr, 4)})
@@ -63,6 +63,8 @@ const AddCoin: FC<IAddCoinProps> = ({activeModal, setActiveModal, coins, coinId}
                 <div className={styles.case_button} onClick={() => handleAddCoinCase(item)}>Add</div>
               </form>
             )
+          }else {
+            return ''
           }
         })}
       </div>

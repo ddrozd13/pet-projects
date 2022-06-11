@@ -1,11 +1,11 @@
 import styles from './CaseCoins.module.scss';
 import React, { FC, useState } from 'react'
 import Modal from '../../Modal/Modal';
-import clsx from 'clsx';
 import { round } from 'lodash';
 import { IStorageCoin } from '../../../utils/GetCoinToLS';
 import { getCoinsFromLS } from '../../../utils/GetCoinToLS';
 import { signMath } from '../../../utils/Math';
+import { textPercent } from '../../../utils/textPercent';
 
 interface ICaseCoinsProps {
   activeModal: boolean;
@@ -37,7 +37,7 @@ const CaseCoins: FC<ICaseCoinsProps> = ({activeModal, setActiveModal}) => {
                 {round(item.price, 3)}$
               </p>
               <span
-                className={clsx(Math.sign(item.percent) === -1 || -0 ? styles.red : styles.green)}
+                className={textPercent(item.percent)}
               >
                 <span className={styles.none_adaptive}>Change percent: </span>
                 {signMath(item.percent)}

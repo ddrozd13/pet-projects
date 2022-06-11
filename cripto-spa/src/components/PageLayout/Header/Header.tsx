@@ -4,12 +4,12 @@ import Case from '../../../images/case.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { round } from 'lodash';
-import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import CaseCoins from '../../Form/CaseCoins/CaseCoins';
 import { caseCounter, caseDifference, casePercent } from '../../../utils/caseCounter';
 import { signMath } from '../../../utils/Math';
 import Menu from './Menu/Menu';
+import { textPercent } from '../../../utils/textPercent';
 
 const Header: FC = () => {
   const [activeModalCase, setActiveModalCase] = useState(false);
@@ -48,7 +48,7 @@ const Header: FC = () => {
                   USD
                   &nbsp;
                   <span
-                    className={clsx(Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}
+                    className={textPercent(coin.changePercent24Hr)}
                   >
                     {signMath(coin.changePercent24Hr)}
                     {round(coin.changePercent24Hr, 2)}
@@ -67,7 +67,7 @@ const Header: FC = () => {
             <div className={styles.case_container_subtitle}>
               {caseCounter()} USD
               <span
-                className={clsx(Math.sign(casePercent()) === -1 || -0 ? styles.red : styles.green)}
+                className={textPercent(casePercent())}
               >
                 &nbsp;
                 {signMath(casePercent())}
@@ -75,7 +75,7 @@ const Header: FC = () => {
                 &nbsp;
               </span>
               (
-              <span className={clsx(Math.sign(caseDifference(coins)) === -1 || -0 ? styles.red : styles.green)}>
+              <span className={textPercent(caseDifference(coins))}>
               {signMath(caseDifference(coins))}{caseDifference(coins)} %
               </span>
               )

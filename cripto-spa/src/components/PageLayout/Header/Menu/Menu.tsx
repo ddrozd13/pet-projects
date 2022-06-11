@@ -5,6 +5,7 @@ import { ICoin } from '../../../../api/Types';
 import { useNavigate } from 'react-router-dom';
 import { signMath } from '../../../../utils/Math';
 import clsx from 'clsx';
+import { textPercent } from '../../../../utils/textPercent';
 
 interface IMenuProps {
   coins: ICoin[] | undefined
@@ -35,7 +36,7 @@ const Menu: FC<IMenuProps> = ({ coins }) => {
             {coin.name}
             <ul style={{display: 'flex'}} className={styles.dropdown_content_container_item}>
               <li>{round(coin.priceUsd, 2)} $</li>
-              <li className={clsx(Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green)}>
+              <li className={textPercent(coin.changePercent24Hr)}>
                 ({signMath(coin.changePercent24Hr)}
                 {round(coin.changePercent24Hr, 3)})
               </li>

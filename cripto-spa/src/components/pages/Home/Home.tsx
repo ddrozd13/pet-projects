@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from '../../../utils/moneyFormat';
 import AddCoin from '../../Form/AddCoin/AddCoin';
 import { signMath } from '../../../utils/Math';
+import { textPercent } from '../../../utils/textPercent';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const Home: FC = () => {
                       <th className={styles.table_body_item}>{coin.name}</th>
                       <td className={styles.table_body_item}>$ {round(coin.priceUsd, 6)}</td>
                       <td
-                        className={clsx(styles.table_body_item, Math.sign(coin.changePercent24Hr) === -1 || -0 ? styles.red : styles.green, styles.table_body_item)}
+                        className={clsx(styles.table_body_item, textPercent(coin.changePercent24Hr))}
                       >
                         {signMath(coin.changePercent24Hr)}
                         {round(coin.changePercent24Hr, 3)}
