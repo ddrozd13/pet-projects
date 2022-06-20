@@ -9,14 +9,14 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_wrapper}>
+        <div className={styles.logo} onClick={() => navigate('/')}>
+          <div>HOME</div>
+        </div>
         <ul className={styles.navigation}>
           <li>Новинки</li>
           <li>Мужчины</li>
           <li>Женщины</li>
         </ul>
-        <div className={styles.logo} onClick={() => navigate('/')}>
-          <div>RAWR</div>
-        </div>
         <div>
           <Button
             variant="contained"

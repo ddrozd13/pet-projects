@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Home.module.scss';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
 import Pagelayout from '../../components/PageLayout/Pagelayout';
 
 const Home = () => {
