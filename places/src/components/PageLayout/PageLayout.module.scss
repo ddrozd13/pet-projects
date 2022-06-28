@@ -1,0 +1,24 @@
+.mainContainer {
+  .appBar {
+    margin-bottom: 24px;
+    padding: 10px 0px;
+    background-color: grey;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .logo {
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+
+

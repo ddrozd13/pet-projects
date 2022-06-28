@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.helperText {
+  margin-top: 3px;
+  margin-left: 14px;
+  font-size: 14px;
+  color: #d32f2f;
+}
+
