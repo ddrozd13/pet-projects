@@ -8,10 +8,10 @@
 ### About the project
 
 Add in project:
-  -Home page with table coins
-  -Create custom Modal
-  -Create case coins( Add in case form and delete coin)
-  -Create custom pagination with redux
-  -Add custom spinner
-  -Create custom tooltip
-  -Add Chart's about coin
+- Home page with table coins
+- Create custom Modal
+- Create case coins( Add in case form and delete coin)
+- Create custom pagination with redux
+- Add custom spinner
+- Create custom tooltip
+- Add Chart's about coin

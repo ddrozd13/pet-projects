@@ -8,10 +8,10 @@
 ### About the project
 
 Add in project:
-  -Imitated back-end
-  -Create form with validate
-  -Create mui-table
-  -Add likes with redux
-  -Add mark-down in form
-  -Add more
-  -404
+- Imitated back-end
+- Create form with validate
+- Create mui-table
+- Add likes with redux
+- Add mark-down in form
+- Add more
+- 404
